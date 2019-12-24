@@ -112,7 +112,67 @@ void clockalgorithm(int n, vector<int> refs){
 }
 
 void optimalalgorithm(int n, vector<int> refs){
-    cout << "OPTIMAL" << endl;
+    cout << "Replacement Policy = OPTIMAL" << endl;
+    cout << "-------------------------------------" << endl;
+    cout << "Page   Content of Frames" << endl;
+    cout << "----   -----------------" << endl;
+    
+    map<int,int> frames;
+    unordered_map<int, bool> istaken;
+    unordered_map<int, bool> isinq;
+    unordered_map<int, int> whichframe;
+    
+    priority_queue<int> pq;
+    
+    int cnt=0,faults =0, in=0;
+    
+    lpi(refs.size()){
+        if(isinq[refs[i]]){
+            print(refs[i], frames, false);
+            continue;
+        }
+        int k;
+        if(frames.size() == n){
+            for(int j = i+1; j < refs.size(); j++){
+                if(isinq[refs[j]] && !istaken[refs[j]]){
+                    k=j;
+                    cnt++;
+                    istaken[refs[j]] = true;
+                    //cout << "refs[j]" << refs[j] << endl;
+                }
+            }
+            int x;
+            if(cnt < n){
+                for(auto a = isinq.begin(); a != isinq.end(); a++){
+                    if(a->second == true && !istaken[a->first]){
+                        x=a->first;
+                        //cout << "a->first " << x << endl;
+                        break;
+                    }
+                }
+            } else {
+                x=refs[k];
+            }
+            frames[whichframe[x]] = refs[i];
+            isinq[x] = false;
+            isinq[refs[i]] = true;
+            
+            istaken.clear();
+            
+            cnt=0;
+            faults++;
+            
+            print(refs[i], frames, true);
+            
+        } else {
+            frames[in] = refs[i];
+            isinq[refs[i]] = true;
+            whichframe[refs[i]] = in++;
+            print(refs[i], frames, false);
+        }
+    }
+    cout << "-------------------------------------" << endl;
+    cout << "Number of page faults = " << faults << endl;
 }
 
 void lrualgorithm(int n, vector<int> refs){
