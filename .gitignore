@@ -1,0 +1,9 @@
+/bin
+/obj
+/Debug
+*.depend
+*.layout
+*.project
+compile_flags.txt
+memory-management.mk
+memory-management.txt
