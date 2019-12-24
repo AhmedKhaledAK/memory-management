@@ -14,11 +14,38 @@ using namespace std;
 
 typedef long long ll;
 
-
+void printframes(map<int,int> frames){
+    for(auto a = frames.begin(); a != frames.end(); a++){
+        cout << a->second << " ";
+    }
+    cout << endl;
+}
 
 void fifoalgorithm(int n, vector<int> refs){
     cout << "FIFO" << endl;
+    map<int,int> frames;
+    unordered_map<int, bool> isinq;
+    
+    int j=0;
+    int in =0;
+    
+    lpi(refs.size()){
+        if(isinq[refs[i]]) {
+            printframes(frames);
+            continue; 
+        }
+        if(frames.size() == n){
+            isinq[frames[j]] = false;
+            frames[j++]=refs[i];
+            if(j==n)j=0;
+        } else {
+            frames[in++] = refs[i];
+        }
+        isinq[refs[i]] = true;
+        printframes(frames);
+    }
 }
+
 
 void clockalgorithm(int n, vector<int> refs){
     cout << "CLOCK" << endl;
