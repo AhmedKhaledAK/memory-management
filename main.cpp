@@ -35,9 +35,7 @@ void fifoalgorithm(int n, vector<int> refs){
     cout << "Replacement Policy = FIFO" << endl;
     cout << "-------------------------------------" << endl;
     cout << "Page   Content of Frames" << endl;
-    cout << "----   -----------------" << endl;
-    
-    
+    cout << "----   -----------------" << endl;   
 
     map<int,int> frames;
     unordered_map<int, bool> isinq;
