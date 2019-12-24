@@ -37,7 +37,9 @@ void fifoalgorithm(int n, vector<int> refs){
     cout << "Page   Content of Frames" << endl;
     cout << "----   -----------------" << endl;
     
-    map<int,int> frames;
+    
+
+map<int,int> frames;
     unordered_map<int, bool> isinq;
     
     int j=0, in =0, faults=0;
@@ -65,7 +67,49 @@ void fifoalgorithm(int n, vector<int> refs){
 
 
 void clockalgorithm(int n, vector<int> refs){
-    cout << "CLOCK" << endl;
+    cout << "Replacement Policy = CLOCK" << endl;
+    cout << "-------------------------------------" << endl;
+    cout << "Page   Content of Frames" << endl;
+    cout << "----   -----------------" << endl;
+    
+    map<int,int> frames;
+    unordered_map<int, bool> used;
+    unordered_map<int, bool> isinq;
+    unordered_map<int, int> whichframe;
+    
+    int j =0, in=0, faults =0;
+    
+    lpi(refs.size()){
+        if(isinq[refs[i]]){
+            used[whichframe[refs[i]]]=true;
+            print(refs[i], frames, false);
+            continue;
+        }
+        if(frames.size() == n){
+            while(used[j]){
+                used[j++]=false;
+                j%=n;
+            }
+            isinq[frames[j]]=false;
+            whichframe[frames[j]] = -1; // not necessary, just in case.
+            frames[j] = refs[i];
+            isinq[frames[j]]=true;
+            used[j] = true;
+            whichframe[refs[i]]=j;
+            j++;
+            j%=n;
+            print(refs[i], frames, true);
+            faults++;
+        } else {
+            frames[in] = refs[i];
+            isinq[refs[i]] = true;
+            whichframe[refs[i]] = in;
+            used[in++]=true;
+            print(refs[i], frames, false);
+        }
+    }
+    cout << "Number of page faults = " << faults << endl;
+    
 }
 
 void optimalalgorithm(int n, vector<int> refs){
