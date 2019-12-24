@@ -39,7 +39,7 @@ void fifoalgorithm(int n, vector<int> refs){
     
     
 
-map<int,int> frames;
+    map<int,int> frames;
     unordered_map<int, bool> isinq;
     
     int j=0, in =0, faults=0;
