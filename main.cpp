@@ -115,7 +115,53 @@ void optimalalgorithm(int n, vector<int> refs){
 }
 
 void lrualgorithm(int n, vector<int> refs){
-    cout << "LRU" << endl;
+    cout << "Replacement Policy = LRU" << endl;
+    cout << "-------------------------------------" << endl;
+    cout << "Page   Content of Frames" << endl;
+    cout << "----   -----------------" << endl;
+    
+    map<int,int> frames;
+    unordered_map<int, int> isreal;
+    unordered_map<int, bool> isinq;
+    unordered_map<int, int> whichframe;
+    
+    priority_queue< ii, vector<ii>, greater<ii> > lru;
+    
+    int ts=0, in=0, faults=0;
+    
+    lpi(refs.size()){
+        if(isinq[refs[i]]){
+            lru.push(make_pair(ts, refs[i]));
+            isreal[refs[i]] = ts++;
+            print(refs[i], frames, false);
+            continue;
+        }
+        if(frames.size() == n){
+            ii pr = lru.top();
+            while(pr.first != isreal[pr.second]) {
+                lru.pop();
+                pr = lru.top();
+            }
+            lru.pop();
+            int page = pr.second;
+            isinq[page] = false;
+            isinq[refs[i]] = true;
+            frames[whichframe[page]] = refs[i];
+            whichframe[refs[i]] = whichframe[page];
+            whichframe[page] = -1; // unnecessary, just in case.
+            print(refs[i], frames, true);
+            faults++;
+        } else {
+            frames[in] = refs[i];
+            whichframe[refs[i]] = in++;
+            isinq[refs[i]] = true;
+            print(refs[i], frames, false);
+        }
+        lru.push(make_pair(ts, refs[i]));
+        isreal[refs[i]] = ts++;
+    }
+    cout << "-------------------------------------" << endl;
+    cout << "Number of page faults = " << faults << endl;
 }
 
 
