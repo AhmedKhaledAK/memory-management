@@ -14,36 +14,53 @@ using namespace std;
 
 typedef long long ll;
 
-void printframes(map<int,int> frames){
+void print(int page, map<int,int> frames, bool fault){
+    if(page < 10) {
+        cout << "0";
+    }
+    cout << page;
+    if(fault) {
+        cout << " F   ";
+    } else { 
+        cout << "     ";
+    }
     for(auto a = frames.begin(); a != frames.end(); a++){
+        if(a->second < 10) cout << "0";
         cout << a->second << " ";
     }
     cout << endl;
 }
 
 void fifoalgorithm(int n, vector<int> refs){
-    cout << "FIFO" << endl;
+    cout << "Replacement Policy = FIFO" << endl;
+    cout << "-------------------------------------" << endl;
+    cout << "Page   Content of Frames" << endl;
+    cout << "----   -----------------" << endl;
+    
     map<int,int> frames;
     unordered_map<int, bool> isinq;
     
-    int j=0;
-    int in =0;
+    int j=0, in =0, faults=0;
     
     lpi(refs.size()){
         if(isinq[refs[i]]) {
-            printframes(frames);
+            print(refs[i], frames, false);
             continue; 
         }
         if(frames.size() == n){
             isinq[frames[j]] = false;
             frames[j++]=refs[i];
             if(j==n)j=0;
+            print(refs[i], frames, true);
+            faults++;
         } else {
             frames[in++] = refs[i];
+            print(refs[i], frames, false);
         }
         isinq[refs[i]] = true;
-        printframes(frames);
     }
+    cout << "-------------------------------------" << endl;
+    cout << "Number of page faults = " << faults << endl;
 }
 
 
@@ -77,10 +94,6 @@ int main(int argc, char **argv)
         refs.push_back(page);
         cin >> page;
     }
-    
-    cout << endl;
-    
-    lpi(refs.size()) cout << refs[i] << endl;
     
     switch(algo[0]){
         case 'F':
