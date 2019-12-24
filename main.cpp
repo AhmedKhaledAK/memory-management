@@ -106,6 +106,7 @@ void clockalgorithm(int n, vector<int> refs){
             print(refs[i], frames, false);
         }
     }
+    cout << "-------------------------------------" << endl;
     cout << "Number of page faults = " << faults << endl;
     
 }
