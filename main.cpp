@@ -90,7 +90,7 @@ void clockalgorithm(unsigned int n, vector<int> refs){
                 j%=n;
             }
             isinq[frames[j]]=false;
-            whichframe[frames[j]] = -1; // not necessary, just in case.
+            whichframe[frames[j]] = -1; // unnecessary, just in case.
             frames[j] = refs[i];
             isinq[frames[j]]=true;
             used[j] = true;
