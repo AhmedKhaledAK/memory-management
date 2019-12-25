@@ -146,7 +146,7 @@ void optimalalgorithm(int n, vector<int> refs){
                 for(auto a = frames.begin(); a != frames.end(); a++){
                     if(!istaken[a->second]){
                         x=a->second;
-                        //cout << "a->first " << x << endl;
+                        //cout << "a->sec " << x << endl;
                         break;
                     }
                 }
@@ -155,6 +155,7 @@ void optimalalgorithm(int n, vector<int> refs){
             }
             frames[whichframe[x]] = refs[i];
             isinq[x] = false;
+            whichframe[refs[i]] = whichframe[x];
             
             istaken.clear();
             
