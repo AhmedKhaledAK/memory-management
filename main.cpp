@@ -143,9 +143,9 @@ void optimalalgorithm(int n, vector<int> refs){
             }
             int x;
             if(cnt < n){
-                for(auto a = isinq.begin(); a != isinq.end(); a++){
-                    if(a->second == true && !istaken[a->first]){
-                        x=a->first;
+                for(auto a = frames.begin(); a != frames.end(); a++){
+                    if(!istaken[a->second]){
+                        x=a->second;
                         //cout << "a->first " << x << endl;
                         break;
                     }
@@ -155,7 +155,6 @@ void optimalalgorithm(int n, vector<int> refs){
             }
             frames[whichframe[x]] = refs[i];
             isinq[x] = false;
-            isinq[refs[i]] = true;
             
             istaken.clear();
             
@@ -166,10 +165,11 @@ void optimalalgorithm(int n, vector<int> refs){
             
         } else {
             frames[in] = refs[i];
-            isinq[refs[i]] = true;
             whichframe[refs[i]] = in++;
             print(refs[i], frames, false);
         }
+        isinq[refs[i]] = true;
+
     }
     cout << "-------------------------------------" << endl;
     cout << "Number of page faults = " << faults << endl;
