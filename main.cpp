@@ -138,7 +138,6 @@ void optimalalgorithm(unsigned int n, vector<int> refs){
                     k=j;
                     cnt++;
                     istaken[refs[j]] = true;
-                    //cout << "refs[j]" << refs[j] << endl;
                 }
             }
             int x;
@@ -146,7 +145,6 @@ void optimalalgorithm(unsigned int n, vector<int> refs){
                 for(auto a = frames.begin(); a != frames.end(); a++){
                     if(!istaken[a->second]){
                         x=a->second;
-                        //cout << "a->sec " << x << endl;
                         break;
                     }
                 }
