@@ -123,8 +123,6 @@ void optimalalgorithm(unsigned int n, vector<int> refs){
     unordered_map<int, bool> isinq;
     unordered_map<int, int> whichframe;
     
-    priority_queue<int> pq;
-    
     unsigned int cnt=0;
     int faults =0, in=0;
     
